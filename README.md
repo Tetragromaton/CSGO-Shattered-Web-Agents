@@ -13,4 +13,4 @@ Pick any model from this operation you want !
 Использование:
 В игре написать !ssf
 
-Видео:
+Видео:https://youtu.be/BqYaHWidAmg
