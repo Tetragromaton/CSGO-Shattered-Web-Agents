@@ -1,4 +1,4 @@
-# CSGO-Shattered-Web-Skins
+# CSGO-Shattered-Web-Agents
 Pick any model from this operation you want !
 
 Внимание ! Конфликтует с моделями игроков ! 
