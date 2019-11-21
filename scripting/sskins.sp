@@ -3,7 +3,7 @@
 #define DEBUG
 
 #define PLUGIN_AUTHOR "Tetragromaton"
-#define PLUGIN_VERSION "1.1"
+#define PLUGIN_VERSION "1.2"
 
 #include <sourcemod>
 #include <sdktools>
@@ -16,14 +16,15 @@ EngineVersion g_Game;
 
 public Plugin myinfo = 
 {
-	name = "Special Skins",
+	name = "Special Skins(Agents)",
 	author = PLUGIN_AUTHOR,
-	description = "Одень скины из обновления Расколотая сеть",
+	description = "Аегнты из обновления Расколотая сеть/Agents from Shattered Web",
 	version = PLUGIN_VERSION,
 	url = "tetradev.org"
 };
 Handle g_sDataSkin;//Terrorist
 Handle g_sDataSKIN_CT;//CTF
+ConVar g_fApplyTimeCVS;
 public void OnPluginStart()
 {
 	g_Game = GetEngineVersion();
@@ -32,9 +33,13 @@ public void OnPluginStart()
 		SetFailState("This plugin is for CSGO/CSS only.");	
 	}
 	RegConsoleCmd("ssf", SpecialSkin3);
+	RegConsoleCmd("agents", SpecialSkin3);
 	HookEvent("player_spawn", OnPlayerSpawn);
 	g_sDataSkin = RegClientCookie("ss_skin_t", "", CookieAccess_Private);
 	g_sDataSKIN_CT = RegClientCookie("ss_skin_ct", "", CookieAccess_Private);
+	g_fApplyTimeCVS = CreateConVar("agents_applytime", "1.3", "Time needed to skin to be applied on player");
+	LoadTranslations("agents_selector.phrases");
+	AutoExecConfig(true, "AgentsSelector");
 }
 public IsValidClient(client)
 {
@@ -50,12 +55,14 @@ public Action OnPlayerSpawn(Event eEvent, const char[] sName, bool bDontBroadcas
 	{
 		if(IsValidClient(client))
 		{
-			CreateTimer(1.3, ApplySkin, client);
+			float time = GetConVarFloat(g_fApplyTimeCVS);
+			CreateTimer(time, ApplySkin, client);
 		}
 	}
 }
 public Action ApplySkin(Handle timer, any:client)
 {
+	if (!IsValidClient(client))return;
 	char SkinNISMO[255];
 	GetClientCookie(client, g_sDataSkin, SkinNISMO, sizeof(SkinNISMO));
 	char SkinNISMOXTUNE[255];
@@ -73,12 +80,18 @@ public Action ApplySkin(Handle timer, any:client)
 public Action SpecialSkin3(client,args)
 {
 	new Handle:menu = CreateMenu(AgencySELECTOR, MenuAction_Select  | MenuAction_End);
-	SetMenuTitle(menu, "Выберите тип агента");
-	AddMenuItem(menu, "Reset", "Сбросить скин");
-	AddMenuItem(menu, "DeservedAGENCY", "Заслуженные агенты");
-	AddMenuItem(menu, "NomineeSDX", "Исключительные агенты");
-	AddMenuItem(menu, "PerfectAGNT", "Превосходные агенты");
-	AddMenuItem(menu, "MasterAGENT", "Мастерские агенты");
+	char Wrapper[255];
+	SetMenuTitle(menu, "%t", "MenuTitle_AgentType");
+	Format(Wrapper, sizeof(Wrapper), "%t", "MenuTitle_AgentReset");
+	AddMenuItem(menu, "Reset", Wrapper);
+	Format(Wrapper, sizeof(Wrapper), "%t", "MenuTitle_AgentDist");
+	AddMenuItem(menu, "DeservedAGENCY", Wrapper);
+	Format(Wrapper, sizeof(Wrapper), "%t", "MenuTitle_AgentExceptional");
+	AddMenuItem(menu, "NomineeSDX", Wrapper);
+	Format(Wrapper, sizeof(Wrapper), "%t", "MenuTitle_AgentSuperior");
+	AddMenuItem(menu, "PerfectAGNT", Wrapper);
+	Format(Wrapper, sizeof(Wrapper), "%t", "MenuTitle_Master");
+	AddMenuItem(menu, "MasterAGENT", Wrapper);
 	DisplayMenu(menu, client, MENU_TIME_FOREVER);	
 }
 public AgencySELECTOR(Handle:menu, MenuAction:action, param1, param2)
@@ -111,7 +124,7 @@ public AgencySELECTOR(Handle:menu, MenuAction:action, param1, param2)
 			{
 				SetClientCookie(param1, g_sDataSkin, "");
 				SetClientCookie(param1, g_sDataSKIN_CT, "");
-				PrintToChat(param1, "Параметры скинов были сброшены.");
+				PrintToChat(param1, "%t", "Agents_Reseted");
 			}
 		}
 
@@ -127,42 +140,65 @@ public AgencySELECTOR(Handle:menu, MenuAction:action, param1, param2)
 SelectorMENUGEN(client, int type)
 {
 	new Handle:menu = CreateMenu(XCGSelector, MenuAction_Select | MenuAction_End);
-	SetMenuTitle(menu, "Выберите агента");
+	SetMenuTitle(menu, "%t", "MenuTitle_PickIt");
+	char Wrapper[1024];
 	switch(type)
 	{
 		case 4://Мастерские
 		{
-			AddMenuItem(menu, "19", "Капитан 3-го ранга Риксоу | NCWS SEAL");
-			AddMenuItem(menu, "20", "Особый агент АВА | ФБР");
-			AddMenuItem(menu, "21", "Доктор Романов | Кавалерия");
-			AddMenuItem(menu, "22", "Элитный мистер Мохлик | Элитный отряд");
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_19");
+			AddMenuItem(menu, "19", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_20");
+			AddMenuItem(menu, "20", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_21");
+			AddMenuItem(menu, "21", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_22");
+			AddMenuItem(menu, "22", Wrapper);
 		}
 		case 3://Превосходные агенты
 		{
-			AddMenuItem(menu, "14", "Черноволк | Кавалерия");
-			AddMenuItem(menu, "15", "Майкл Сайферс | ФБР");
-			AddMenuItem(menu, "16", "''Дважды'' Маккой | USAF TACP");
-			AddMenuItem(menu, "17", "Профессор Шахмат | Элитный отряд");
-			AddMenuItem(menu, "18", "Резан Готовый | Кавалерия");
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_14");
+			AddMenuItem(menu, "14", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_15");
+			AddMenuItem(menu, "15", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_16");
+			AddMenuItem(menu, "16", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_17");
+			AddMenuItem(menu, "17", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_18");
+			AddMenuItem(menu, "18", Wrapper);
 		}
 		case 2://Исключительные агенты
 		{
-			AddMenuItem(menu, "8", "Маркус Делроу | ФБР");
-			AddMenuItem(menu, "9", "Максимус | Кавалерия");
-			AddMenuItem(menu, "10", "Бакшот | NCWS Seal");
-			AddMenuItem(menu, "11", "Осирис | Элитный отряд");
-			AddMenuItem(menu, "12", "Мясник | Феникс");
-			AddMenuItem(menu, "13", "Драгомир | Кавалерия");
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_8");
+			AddMenuItem(menu, "8", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_9");
+			AddMenuItem(menu, "9", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_10");
+			AddMenuItem(menu, "10", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_11");
+			AddMenuItem(menu, "11", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_12");
+			AddMenuItem(menu, "12", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_13");
+			AddMenuItem(menu, "13", Wrapper);
 		}
 		case 1://Заслуженные агенты
 		{
-			AddMenuItem(menu, "1", "Солдат SEAL TEAM 6 | NSWC SEAL");
-			AddMenuItem(menu, "2", "Третья рота коммандо | KSK");
-			AddMenuItem(menu, "3", "Оперативник | ФБР : SWAT");
-			AddMenuItem(menu, "4", "Диверсант | Элитный отряд");
-			AddMenuItem(menu, "5", "Головорез | Феникс");
-			AddMenuItem(menu, "6", "Солдат | Феникс");
-			AddMenuItem(menu, "7", "Офицер отряда B | SAS");
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_1");
+			AddMenuItem(menu, "1", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_2");
+			AddMenuItem(menu, "2", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_3");
+			AddMenuItem(menu, "3", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_4");
+			AddMenuItem(menu, "4", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_5");
+			AddMenuItem(menu, "5", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_6");
+			AddMenuItem(menu, "6", Wrapper);
+			Format(Wrapper, sizeof(Wrapper), "%t", "AgentSID_7");
+			AddMenuItem(menu, "7", Wrapper);
 		}
 		default:
 		{
@@ -306,16 +342,16 @@ public XCGSelector(Handle:menu, MenuAction:action, param1, param2)
 				if(team == 1)
 				{
 					SetClientCookie(param1, g_sDataSkin, ModelName);
-					PrintToChat(param1, "Модель агента за КТ будет установлена при следующем спавне.");
+					PrintToChat(param1, "%t", "Agent_PickedCT");
 				}else if(team == 2)
 				{
-					PrintToChat(param1, "Модель агента за Т будет установлена при следующем спавне.");
+					PrintToChat(param1, "%t", "Agent_PickedT");
 					SetClientCookie(param1, g_sDataSKIN_CT, ModelName);
 				}
 			}
 		}
 
-
+ 
 		case MenuAction_End:
 		{
 			//param1 is MenuEnd reason, if canceled param2 is MenuCancel reason

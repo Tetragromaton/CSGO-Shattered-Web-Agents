@@ -1,0 +1,168 @@
+"Phrases"
+{
+	"MenuTitle_AgentType"
+	{
+		"en"		"Choose agent type:"
+		"ru"		"Выберите тип агента:"
+	}
+	"MenuTitle_AgentReset"
+	{
+		"en"		"Reset agents skin"
+		"ru"		"Сбросить скины агентов"
+	}
+	"MenuTitle_AgentDist"
+	{
+		"en"		"Distinguished Agents"
+		"ru"		"Заслуженные агенты"
+	}
+	"MenuTitle_AgentExceptional"
+	{
+		"en"		"Exceptional Agents"
+		"ru"		"Исключительные агенты"
+	}
+	"MenuTitle_AgentSuperior"
+	{
+		"en"		"Superior Agents"
+		"ru"		"Превосходные агенты"
+	}
+	"MenuTitle_Master"
+	{
+		"en"		"Master Agents"
+		"ru"		"Мастерские агенты"
+	}
+	"MenuTitle_PickIt"
+	{
+		"en"		"Choice agent skin you want:"
+		"ru"		"Заслуженные агенты"
+	}
+	"Agents_Reseted"
+	{
+		"en"		"Agent skin for both teams was resetted."
+		"ru"		"Скины агентов сброшены."
+	}
+	"Agent_PickedT"
+	{
+		"en"		"Agent model for T will be chosen next time you spawned."
+		"ru"		"Модель агента будет за Т будет выбрана при следующем спавне."
+	}
+	"Agent_PickedCT"
+	{
+		"en"		"Agent model for CT will be chosen next time you spawned."
+		"ru"		"Модель агента будет за КТ будет выбрана при следующем спавне."
+	}	
+	"AgentSID_20"
+	{
+		"en"		"Special Agent Ava | FBI"
+		"ru"		"Особый агент АВА | ФБР"
+	}
+	"AgentSID_19"
+	{
+		"en"		"Lt. Commander Ricksaw | NSWC SEAL"
+		"ru"		"Капитан 3-го ранга Риксоу | NCWS SEAL"
+	}
+	"AgentSID_13"
+	{
+		"en"		"Dragomir | Sabre"
+		"ru"		"Драгомир | Кавалерия"
+	}
+	"AgentSID_18"
+	{
+		"en"		"Rezan The Ready | Sabre"
+		"ru"		"Резан Готовый | Кавалерия"
+	}
+	"AgentSID_21"
+	{
+		"en"		"'The Doctor' Romanov | Sabre"
+		"ru"		"Доктор Романов | Кавалерия"
+	}
+	"AgentSID_9"
+	{
+		"en"		"Maximus | Sabre"
+		"ru"		"Максимус | Кавалерия"
+	}
+	"AgentSID_14"
+	{
+		"en"		"Blackwolf | Sabre"
+		"ru"		"Черноволк | Кавалерия"
+	}
+	"AgentSID_22"
+	{
+		"en"		"The Elite Mr. Muhlik | Elite Crew"
+		"ru"		"Элитный мистер Мохлик | Элитный отряд"
+	}
+	"AgentSID_4"
+	{
+		"en"		"Ground Rebel  | Elite Crew"
+		"ru"		"Диверсант  | Элитный отряд"
+	}	
+	"AgentSID_11"
+	{
+		"en"		"Osiris | Elite Crew"
+		"ru"		"Осирис | Элитный отряд"
+	}
+	"AgentSID_17"
+	{
+		"en"		"Prof. Shahmat | Elite Crew"
+		"ru"		"Профессор Шахмат | Элитный отряд"
+	}	
+	"AgentSID_5"
+	{
+		"en"		"Enforcer | Phoenix"
+		"ru"		"Головорез | Феникс"
+	}
+	"AgentSID_12"
+	{
+		"en"		"Slingshot | Phoenix"
+		"ru"		"Мясник | Феникс"
+	}
+	"AgentSID_6"
+	{
+		"en"		"Soldier | Phoenix"
+		"ru"		"Солдат | Феникс"
+	}
+	"AgentSID_3"
+	{
+		"en"		"Operator | FBI SWAT"
+		"ru"		"Оперативник | ФБР: SWAT"
+	}
+	"AgentSID_8"
+	{
+		"en"		"Markus Delrow | FBI"
+		"ru"		"Маркус Делроу | ФБР"
+	}
+	"AgentSID_15"
+	{
+		"en"		"Markus Delrow | FBI"
+		"ru"		"Маркус Делроу | ФБР"
+	}	
+	"AgentSID_7"
+	{
+		"en"		"B Squadron Officer | SAS"
+		"ru"		"Офицер отряда B | SAS"
+	}
+	"AgentSID_1"
+	{
+		"en"		"Seal Team 6 Soldier | NSWC SEAL"
+		"ru"		"Солдат SEAL Team 6 | NSWC SEAL"
+	}
+	"AgentSID_10"
+	{
+		"en"		"Buckshot | NSWC SEAL"
+		"ru"		"Бакшот | NSWC SEAL"
+	}
+	"AgentSID_19"
+	{
+		"en"		"Lt. Commander Ricksaw | NSWC SEAL"
+		"ru"		"Капитан 3-го ранга Риксоу | NSWC SEAL"
+	}
+	"AgentSID_2"
+	{
+		"en"		"3rd Commando Company | KSK"
+		"ru"		"Третья рота коммандо | KSK"
+	}
+	"AgentSID_16"
+	{
+		"en"		"'Two Times' McCoy | USAF TACP"
+		"ru"		"Дважды МакКой | USAF TACP"
+	}
+}
