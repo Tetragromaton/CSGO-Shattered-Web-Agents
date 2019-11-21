@@ -3,7 +3,7 @@
 #define DEBUG
 
 #define PLUGIN_AUTHOR "Tetragromaton"
-#define PLUGIN_VERSION "1.2"
+#define PLUGIN_VERSION "1.3"
 
 #include <sourcemod>
 #include <sdktools>
@@ -139,7 +139,7 @@ public AgencySELECTOR(Handle:menu, MenuAction:action, param1, param2)
 }
 SelectorMENUGEN(client, int type)
 {
-	new Handle:menu = CreateMenu(XCGSelector, MenuAction_Select | MenuAction_End);
+	new Handle:menu = CreateMenu(XCGSelector, MenuAction_Select | MenuAction_Cancel | MenuAction_End);
 	SetMenuTitle(menu, "%t", "MenuTitle_PickIt");
 	char Wrapper[1024];
 	switch(type)
@@ -206,6 +206,7 @@ SelectorMENUGEN(client, int type)
 			CloseHandle(menu);
 		}
 	}
+	SetMenuExitBackButton(menu, true);
 	DisplayMenu(menu, client, MENU_TIME_FOREVER);
 }
 public XCGSelector(Handle:menu, MenuAction:action, param1, param2)
@@ -351,7 +352,10 @@ public XCGSelector(Handle:menu, MenuAction:action, param1, param2)
 			}
 		}
 
- 
+ 		case MenuAction_Cancel:
+ 		{
+ 			SpecialSkin3(param1, 0);
+ 		}
 		case MenuAction_End:
 		{
 			//param1 is MenuEnd reason, if canceled param2 is MenuCancel reason
