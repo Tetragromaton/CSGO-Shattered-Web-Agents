@@ -1,5 +1,5 @@
 # CSGO-Shattered-Web-Agents
-Pick any model from this operation you want !
+Pick any model from this operation you want ! Also comes with patches !
 Выберите агента из данной операции, которого захотите.
 
 
